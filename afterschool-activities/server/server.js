@@ -21,14 +21,13 @@ const jsonData = [
     { id: 10, title: "Psychology", location: "Hendon", price: 2000, spaces: 25 }
 ];
 
-// Serve static files from the public directory
-app.use(express.static(path.join(__dirname, '../client/public')));
+// Serve static files from the client directory
+app.use(express.static(path.join(__dirname, '../client')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/public/index.html'));
+    res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-// Route to serve JSON data
 app.get('/data', (req, res) => {
     res.json(jsonData);
 });
