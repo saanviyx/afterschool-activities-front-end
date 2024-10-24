@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Afterschool Activities</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <div id="app">
+      <header>
+        <h1 v-text="sitename"></h1>
+
+        <div class="button" @click="toggleCheckout">
+          <span class="content">{{ cartButtonLabel }}</span>
+          <i class="fas fa-cart-plus"></i>
+          <span class="badge" v-if="!isCheckoutVisible && cart.length"
+            >{{ cart.length }}</span
+          >
+        </div>
+      </header>
+
+      <main>
+        <div id="productList" v-if="!isCheckoutVisible">
+          <figure>
+            <img v-bind:src="product.image" />
+          </figure>
+
+          <h2 v-text="product.title"></h2>
+          <p v-text="product.description"></p>
+          <p v-text="product.price"></p>
+          <input
+            type="button"
+            value="Add to Cart"
+            @click="addToCart"
+            :disabled="!canAddToCart"
+          />
+          <p v-if="!canAddToCart" style="color: red">
+            Inventory limit reached!
+          </p>
+        </div>
+
+        <div id="checkOut" v-if="isCheckoutVisible">
+          <h2>Checkout</h2>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      let webstore = new Vue({
+        el: "#app",
+        data: {
+          sitename: "School Math Website",
+          product: {
+            id: 1001,
+            title: "Math",
+            description: "X + 2 = 5, find X",
+            price: 2000,
+            image: "images/math.jpg",
+            availableInventory: 5,
+          },
+          cart: [],
+          isCheckoutVisible: false,
+        },
+        computed: {
+          cartItemCount: function () {
+            return this.cart.length || "";
+          },
+          canAddToCart: function () {
+            return this.cartItemCount < this.product.availableInventory;
+          },
+          cartButtonLabel: function () {
+            return this.isCheckoutVisible ? "Product List" : "Cart";
+          },
+        },
+        methods: {
+          addToCart: function () {
+            if (this.canAddToCart) {
+              this.cart.push(this.product.id);
+            }
+          },
+          toggleCheckout: function () {
+            this.isCheckoutVisible = !this.isCheckoutVisible;
+          },
+        },
+      });
+      fetch('/data')
+          .then(response => response.json())
+          .then(data => {
+              const activitiesDiv = document.getElementById('activities');
+              data.forEach(activity => {
+                  activitiesDiv.innerHTML += `<p>${activity.title} - ${activity.location} - $${activity.price} (${activity.spaces} spaces available)</p>`;
+              });
+          });
+    </script>
+  </body>
+</html>
