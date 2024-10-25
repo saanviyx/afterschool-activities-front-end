@@ -15,16 +15,20 @@
     <div id="app">
       <header>
         <h1>Afterschool Activities</h1>
-        <div class="button" @click="toggleCartPage">
+        <label class="switch" style="margin-left: 62.5rem; margin-top: 13px;">
+          <input type="checkbox" id="themeToggle" @change="toggleTheme" />
+          <span class="slider round"></span>
+        </label>
+        <div class="button" @click="toggleCartPage" style="margin-right: 5px;">
           <i class="fas fa-cart-plus"></i>
           <span class="badge" v-if="cartItemCount">{{ cartItemCount }}</span>
         </div>
       </header>
 
       <div v-if="!isCartPage">
-        <div style="padding: 15px; padding-bottom: 0px;">
+        <div style="padding: 15px; padding-bottom: 8px; padding-top: 8px;">
           <input type="text" id="search" v-model="searchQuery" placeholder="Search Lessons..." />
-          <select v-model="sortKey">
+          <select v-model="sortKey" style="margin-left: 5px;">
             <option value="title">Subject</option>
             <option value="location">Location</option>
             <option value="price">Price</option>
@@ -35,10 +39,6 @@
           </label>
           <label>
             <input type="radio" v-model="sortOrder" value="desc" /> Descending
-          </label>
-          <label class="switch" style="margin-left: 30rem;">
-            <input type="checkbox" id="themeToggle" @change="toggleTheme" />
-            <span class="slider round"></span>
           </label>
         </div>
 
@@ -60,9 +60,9 @@
         </div>
       </div>
 
-      <div v-if="isCartPage" id="cart-page" class="cart-page" style="padding: 15px;">
+      <div v-if="isCartPage" id="cart-page" class="cart-page">
         <h2>Shopping Cart</h2>
-        <div v-if="cart.length">
+        <div v-if="cart.length" class="cart-content">
           <div v-for="item in cart" :key="item.id" class="cart-lesson">
             {{ item.title }} - ${{ item.price }} x {{ item.quantity }}
             <button @click="removeFromCart(item)">Remove</button>
@@ -76,7 +76,10 @@
             <button type="submit" :disabled="!canCheckout">Checkout</button>
           </form>
         </div>
-      </div>
+        <div v-else>
+          <p>Your cart is empty.</p>
+        </div>
+      </div>      
     </div>
     <script src="js/main.js"></script>
   </body>

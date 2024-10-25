@@ -12,7 +12,7 @@ let app = new Vue({
       icons: {
         art: 'fa-palette',
         psychology: 'fa-brain',
-        physics: 'fa-atom',
+        biology: 'fa-microscope',
         chemistry: 'fa-flask',
         math: 'fa-square-root-alt'
       },

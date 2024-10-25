@@ -9,10 +9,12 @@ body {
 header {
     display: flex;
     justify-content: space-between;
-    height: 70px;
+    height: 80px;
     align-items: center;
     background-color: #96B6C5; 
     padding: 5px;
+    padding-top: 0px;
+    border-bottom: 3px solid #fff;;
 }
 
 h1 {
@@ -39,7 +41,6 @@ input[type="text"], select {
     text-align: center;
     font-size: 2rem;
     display: flex;
-    margin: 1.5rem;
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s;
@@ -56,12 +57,12 @@ input[type="text"], select {
 .lesson {
     background-color: #96B6C5; 
     color: #fff;
-    border-radius: 3px;
+    border-radius: 5px;
     width: 21%;
-    padding: 20px;
-    margin: 5px 0;
+    padding: 18px;
     margin-bottom: 0px;
     text-align: center; 
+    border: 3px solid #fff;
 }
 
 .lesson-container {
@@ -94,10 +95,13 @@ input[type="text"], select {
 }
 
 .cart-page {
-    background-color: #fff; 
-    padding: 10px;
-    border-radius: 5px;
-    margin: 5px 0;
+    background-color: #96B6C5; 
+    color: #fff;
+    padding: 30px;
+    max-width: 600px;
+    margin: 30px auto;
+    margin-top: 5rem; 
+    border-radius: 8px;
 }
 
 .cart-lesson {
@@ -185,7 +189,7 @@ main {
     right: 0;
     bottom: 6px;
     max-height: 2rem;
-    background-color: #96B6C5;
+    background-color: #fff;
     transition: 0.3s;
     border-radius: 34px;
 }
@@ -197,13 +201,13 @@ main {
     width: 25px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: #96B6C5;
     transition: 0.3s;
     border-radius: 50%;
 }
   
 input:checked + .slider {
-    background-color: #bebaaa; 
+    background-color: #fff;
 }
   
 input:checked + .slider:before {
@@ -211,6 +215,7 @@ input:checked + .slider:before {
 }
   
 .slider.round {
+    margin-top: 1px;
     border-radius: 34px;
 }
   
@@ -220,17 +225,23 @@ input:checked + .slider:before {
   
 
 body.dark-theme {
-    background-color: #100f35;
+    background-color: #080728;
     color: #393535;
 }
 
 body.dark-theme header {
-    background-color: #ded9c7; 
-    color: #100f35;
+    background-color: #080728; 
+    height: 80px;
+    color: #fff;
+    border-bottom: 3px solid #fff;
+}
+
+body.dark-theme .slider:before {
+    background-color: #080728;
 }
 
 body.dark-theme header h1 {
-    color: #100f35;
+    color: #fff;
 }
 
 body.dark-theme label {
@@ -238,8 +249,21 @@ body.dark-theme label {
 }
 
 body.dark-theme header .button {
-    background-color: #ded9c7;
-    color: #100f35;
+    background-color: #080728;
+    color: #fff;
+}
+
+body.dark-theme .lesson {
+    background-color: #080728; 
+    color: #fff;
+    border: 3px solid #fff;
+    width: 21%;
+    padding: 18px;
+    margin-bottom: 0px;
+}
+
+body.dark-theme .lesson button{
+    color: #080728;
 }
   
 #cart-btn {
@@ -264,24 +288,33 @@ body.dark-theme header .button {
 }
 
 form {
-    margin-top: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background: #f9f9f9;
+    background: #96B6C5;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
 }
 
 form label {
-    display: block;
-    margin: 10px 0 5px;
+    color: #ccc;
+    font-weight: bold;
 }
 
 form input[type="text"],
 form input[type="email"] {
-    width: calc(100% - 20px);
+    background: #fff;
+    color: #888;
+    border: none;
     padding: 10px;
-    border: 1px solid #ddd;
+    align-items: center;
+    margin-bottom: 10px;
+    width: calc(100% - 22px);
     border-radius: 5px;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus {
+    outline: none;
+    border: 1px solid #e0e0e0;
 }
 
 form button[type="submit"] {
@@ -291,10 +324,17 @@ form button[type="submit"] {
     padding: 10px;
     cursor: pointer;
     width: 100%;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+form button[type="submit"]:hover {
+    background-color: #218838;
 }
 
 form button[type="submit"]:disabled {
-    background: #ccc;
+    background-color: #6c757d;
     cursor: not-allowed;
 }
   

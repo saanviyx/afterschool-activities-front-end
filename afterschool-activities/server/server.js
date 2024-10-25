@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const jsonData = [
     { id: 1, title: "Math", location: "Hendon", price: 2000, spaces: 5 },
-    { id: 2, title: "Physics", location: "Mauritius", price: 2500, spaces: 5 },
+    { id: 2, title: "Biology", location: "Mauritius", price: 2500, spaces: 5 },
     { id: 3, title: "Math", location: "Dubai", price: 2200, spaces: 5 },
     { id: 4, title: "Art", location: "Mauritius", price: 1900, spaces: 5 },
     { id: 5, title: "Chemistry", location: "Hendon", price: 2300, spaces: 5 },
