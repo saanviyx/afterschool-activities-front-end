@@ -3,33 +3,44 @@ let app = new Vue({
     data: {
       lessons: [],
       cart: [],
-      isCartModalVisible: false,
-      isCheckoutModalVisible: false,
+      isCartPage: false,
       sortKey: "title",
-      sortOrder: false,
+      sortOrder: '',
       name: "",
       email: "",
       searchQuery: "",
+      icons: {
+        art: 'fa-palette',
+        psychology: 'fa-brain',
+        physics: 'fa-atom',
+        chemistry: 'fa-flask',
+        math: 'fa-square-root-alt'
+      },
     },
     computed: {
       cartTotal() {
         return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
+      },
+      cartItemCount() {
+        return this.cart.reduce((total, item) => total + item.quantity, 0);
       },
       canCheckout() {
         return this.cart.length > 0;
       },
       sortedLessons() {
         return this.lessons
-        .filter(lesson => lesson.title.toLowerCase().includes(this.searchQuery.toLowerCase())) // Filter based on searchQuery
+        .filter(lesson => 
+          lesson.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          lesson.location.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          lesson.price.toString().toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          lesson.spaces.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
+        )
         .sort((a, b) => {
           let result = 0;
           if (a[this.sortKey] < b[this.sortKey]) result = -1;
           if (a[this.sortKey] > b[this.sortKey]) result = 1;
-          return this.sortOrder ? result * -1 : result;
+          return this.sortOrder === 'asc' ? result : -result;
         });
-      },
-      cartButtonLabel() {
-        return this.isCartModalVisible ? "Close Cart" : "Shopping Cart";
       },
     },
     methods: {
@@ -62,19 +73,14 @@ let app = new Vue({
             originalLesson.spaces++;
         }
       },
-      toggleCartModal() {
-        this.isCartModalVisible = !this.isCartModalVisible;
-      },
-      openCheckoutModal() {
-        this.isCartModalVisible = false;
-        this.isCheckoutModalVisible = true;
-      },
-      toggleCheckout() {
-        this.isCheckoutModalVisible = !this.isCheckoutModalVisible;
+      toggleCartPage() {
+        if (this.cart.length > 0 || this.isCartPage) {
+          this.isCartPage = !this.isCartPage;
+        }
       },
       submitOrder() {
         alert(`Order submitted by ${this.name}. Total: $${this.cartTotal}`);
-        this.cart = [];  // Clear the cart after submission
+        this.cart = []; 
         this.isCheckoutModalVisible = false;
       },
       toggleTheme() {

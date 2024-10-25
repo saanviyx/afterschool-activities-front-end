@@ -15,67 +15,65 @@
     <div id="app">
       <header>
         <h1>Afterschool Activities</h1>
-        <div class="button" @click="toggleCartModal">
+        <div class="button" @click="toggleCartPage">
           <i class="fas fa-cart-plus"></i>
-          <span class="badge" v-if="cart.length">{{ cart.length }}</span>
+          <span class="badge" v-if="cartItemCount">{{ cartItemCount }}</span>
         </div>
       </header>
 
-      <div style="padding: 15px; padding-bottom: 0px;">
-        <label for="search">Search:</label>
-        <input type="text" id="search" v-model="searchQuery" placeholder="Search lessons..." />
-        <label for="sortOrder">Sort by:</label>
-        <select v-model="sortKey">
-          <option value="title">Subject</option>
-          <option value="location">Location</option>
-          <option value="price">Price</option>
-          <option value="spaces">Availability</option>
-        </select>
-        <label><input type="checkbox" v-model="sortOrder"> Descending</label>
-        <label class="switch" style="margin-left: 45rem;">
-          <input type="checkbox" id="themeToggle" @change="toggleTheme" />
-          <span class="slider round"></span>
-        </label>
-      </div>
-
-      <div v-if="sortedLessons.length" id="lessonList" class="lesson-container" style="padding: 15px; padding-top: 0px;">
-        <div v-for="lesson in sortedLessons" :key="lesson.id" class="lesson">
-          <h2>{{ lesson.title }}</h2>
-          <p>Location: {{ lesson.location }}</p>
-          <p>Price: ${{ lesson.price }}</p>
-          <p>Availability: {{ lesson.spaces }}</p>
-          <button @click="addToCart(lesson)" :disabled="lesson.spaces === 0">Add to Cart</button>
+      <div v-if="!isCartPage">
+        <div style="padding: 15px; padding-bottom: 0px;">
+          <input type="text" id="search" v-model="searchQuery" placeholder="Search Lessons..." />
+          <select v-model="sortKey">
+            <option value="title">Subject</option>
+            <option value="location">Location</option>
+            <option value="price">Price</option>
+            <option value="spaces">Availability</option>
+          </select>
+          <label style="margin-right: 15px; margin-left: 8px;">
+            <input type="radio" v-model="sortOrder" value="asc" /> Ascending
+          </label>
+          <label>
+            <input type="radio" v-model="sortOrder" value="desc" /> Descending
+          </label>
+          <label class="switch" style="margin-left: 30rem;">
+            <input type="checkbox" id="themeToggle" @change="toggleTheme" />
+            <span class="slider round"></span>
+          </label>
         </div>
-      </div>
 
-      <div v-if="isCartModalVisible" id="cart-modal" class="modal" style="padding: 15px;">
-        <div class="modal-content">
-          <span id="close-cart-btn" @click="toggleCartModal">&times;</span>
-          <h2>Shopping Cart</h2>
-          <div v-if="cart.length">
-            <div v-for="item in cart" :key="item.id" class="cart-lesson">
-              {{ item.title }} - ${{ item.price }} x {{ item.quantity }}
-              <button @click="removeFromCart(item)">Remove</button>
-            </div>
-            <button @click="openCheckoutModal">Checkout</button>
-          </div>
-          <div v-else>
-            <p>Your cart is empty.</p>
+        <div v-if="sortedLessons.length === 0" class="no-lessons-message">
+          No lessons found.
+        </div>
+
+        <div v-if="sortedLessons.length" id="lessonList" class="lesson-container" style="padding: 15px; padding-top: 0px;">
+          <div v-for="lesson in sortedLessons" :key="lesson.id" class="lesson">
+            <h2>
+              <i :class="['fas', icons[lesson.title.toLowerCase()]]"></i> 
+              {{ lesson.title }}
+            </h2>
+            <p>Location: {{ lesson.location }}</p>
+            <p>Price: ${{ lesson.price }}</p>
+            <p>Availability: {{ lesson.spaces }}</p>
+            <button @click="addToCart(lesson)" :disabled="lesson.spaces === 0">Add to Cart</button>
           </div>
         </div>
       </div>
 
-      <div v-if="isCheckoutModalVisible" id="checkout-modal" class="modal" style="padding: 15px;">
-        <div class="modal-content">
-          <span id="close-checkout-btn" @click="toggleCheckout">&times;</span>
-          <h3>Checkout</h3>
-          <p>Total: ${{ cartTotal }}</p>
+      <div v-if="isCartPage" id="cart-page" class="cart-page" style="padding: 15px;">
+        <h2>Shopping Cart</h2>
+        <div v-if="cart.length">
+          <div v-for="item in cart" :key="item.id" class="cart-lesson">
+            {{ item.title }} - ${{ item.price }} x {{ item.quantity }}
+            <button @click="removeFromCart(item)">Remove</button>
+          </div>
+          <h3>Total: ${{ cartTotal }}</h3>
           <form id="checkout-form" @submit.prevent="submitOrder">
             <label for="name">Name:</label>
             <input type="text" id="name" v-model="name" required /><br />
             <label for="email">Email:</label>
             <input type="email" id="email" v-model="email" required /><br />
-            <button type="submit" :disabled="!canCheckout">Submit Order</button>
+            <button type="submit" :disabled="!canCheckout">Checkout</button>
           </form>
         </div>
       </div>
