@@ -5,7 +5,7 @@ let app = new Vue({
     cart: [],
     isCartPage: false,
     sortKey: "title",
-    sortOrder: '',
+    sortOrder: "",
     name: "",
     phone: "",
     searchQuery: "",
@@ -24,28 +24,35 @@ let app = new Vue({
   },
   computed: {
     cartTotal() {
-      return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
+      return this.cart.reduce((total, item) => total + item.price, 0);
     },
     cartItemCount() {
-      return this.cart.reduce((total, item) => total + item.quantity, 0);
+      return this.cart.length;
     },
     canCheckout() {
       return this.cart.length > 0;
     },
-    sortedLessons() {
-      return this.lessons
-      .filter(lesson => 
-        lesson.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        lesson.location.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        lesson.price.toString().toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        lesson.spaces.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
-      )
-      .sort((a, b) => {
-        let result = 0;
-        if (a[this.sortKey] < b[this.sortKey]) result = -1;
-        if (a[this.sortKey] > b[this.sortKey]) result = 1;
-        return this.sortOrder === 'asc' ? result : -result;
-      });
+    filteredLessons() {
+      let filtered = [];
+      for (let lesson of this.lessons) {
+        if (
+          lesson.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          lesson.location.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          lesson.price.toString().includes(this.searchQuery) ||
+          lesson.spaces.toString().includes(this.searchQuery)
+        ) {
+          filtered.push(lesson);
+        }
+      }
+      if (this.sortKey && this.sortOrder) {
+        filtered.sort((a, b) => {
+          let result = 0;
+          if (a[this.sortKey] < b[this.sortKey]) result = -1;
+          if (a[this.sortKey] > b[this.sortKey]) result = 1;
+          return this.sortOrder === "asc" ? result : -result;
+        });
+      }
+      return filtered;
     },
   },
   methods: {
@@ -58,25 +65,17 @@ let app = new Vue({
       }
     },
     addToCart(lesson) {
-      const cartItem = this.cart.find((item) => item.id === lesson.id);
-      if (cartItem) {
-        cartItem.quantity++;
-      } else {
-        this.cart.push({ ...lesson, quantity: 1 });
-      }
+      this.cart.push({ ...lesson, cartId: Date.now() });
       lesson.spaces--;
     },
     removeFromCart(item) {
-      const lesson = this.cart.find(cartItem => cartItem.id === item.id);
-      if (lesson.quantity > 1) {
-          lesson.quantity--;
-      } else {
-          this.cart = this.cart.filter(cartItem => cartItem.id !== item.id);
-      }
-      const originalLesson = this.sortedLessons.find(lesson => lesson.id === item.id);
-      if (originalLesson) {
-          originalLesson.spaces++;
-      }
+      this.cart = this.cart.filter(cartItem => cartItem.cartId !== item.cartId);
+      const originalLesson = this.lessons.find(lesson => lesson.id === item.id);
+      if (originalLesson) originalLesson.spaces++;
+    },
+    sortLessons() {
+      // No default sort applied unless user selects.
+      if (this.sortOrder && this.sortKey) this.filteredLessons();
     },
     toggleCartPage() {
       if (this.cart.length > 0 || this.isCartPage) {
@@ -92,16 +91,14 @@ let app = new Vue({
       return phonePattern.test(this.phone);
     },
     submitOrder() {
-      if (!this.validateName()) {
-        alert("Please enter a valid name.");
-        return;
+      if (this.validateName() && this.validatePhone()) {
+        alert(`Order submitted by ${this.name}. Total: $${this.cartTotal}`);
+        this.cart = [];
+        this.name = "";
+        this.phone = "";
+      } else {
+        alert("Please complete the form correctly.");
       }
-      if (!this.validatePhone()) {
-        alert("Please enter a valid 10-digit phone number.");
-        return;
-      }
-      alert(`Order submitted by ${this.name}. Total: $${this.cartTotal}`);
-      this.cart = [];
     },
     toggleTheme() {
       document.body.classList.toggle("dark-theme");
