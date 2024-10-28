@@ -4,23 +4,11 @@ let app = new Vue({
     lessons: [],
     cart: [],
     isCartPage: false,
-    sortKey: "title",
+    sortKey: "",
     sortOrder: "",
     name: "",
     phone: "",
     searchQuery: "",
-    icons: {
-      coding: 'fa-laptop-code',
-      kungfu: 'fa-fist-raised',
-      karate: 'fa-hand-rock',
-      art: 'fa-palette',
-      robotics: 'fa-robot',
-      tennis: 'fa-tennis',
-      guitar: 'fa-guitar',
-      piano: 'fa-music',
-      drama: 'fa-theater-masks',
-      photography: 'fa-camera-retro',
-    },
   },
   computed: {
     cartTotal() {
@@ -102,6 +90,24 @@ let app = new Vue({
     },
     toggleTheme() {
       document.body.classList.toggle("dark-theme");
+    },
+    getStars(rating) {
+      const fullStars = Math.floor(rating);
+      const halfStar = rating % 1 >= 0.5;
+      const stars = [];
+
+      for (let i = 0; i < fullStars; i++) {
+        stars.push('<i class="fas fa-star"></i>');
+      }
+
+      if (halfStar) {
+        stars.push('<i class="fas fa-star-half-alt"></i>');
+      }
+
+      while (stars.length < 3) {
+        stars.push('<i class="far fa-star"></i>');
+      }
+      return stars.join(" ");
     },
   },
   mounted() {

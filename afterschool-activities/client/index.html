@@ -29,13 +29,14 @@
     <div class="lessons-page">
       <input type="text" id="search" v-model="searchQuery" placeholder="Search Lessons..." />
       <select v-model="sortKey">
+        <option disabled value="">Sort By</option>
         <option value="title">Subject</option>
         <option value="location">Location</option>
         <option value="price">Price</option>
         <option value="spaces">Availability</option>
       </select>
       <select v-model="sortOrder" @change="sortLessons">
-        <option disabled value="">Select Order</option>
+        <option disabled value="">Order By</option>
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>
       </select>
@@ -47,10 +48,8 @@
 
     <div v-if="filteredLessons.length" id="lessonList" class="lesson-container">
       <div v-for="lesson in filteredLessons" :key="lesson.id" class="lesson">
-        <h2>
-          <i :class="['fas', icons[lesson.title.toLowerCase()]]"></i>
-          {{ lesson.title }}
-        </h2>
+        <h2>{{ lesson.title }}</h2>
+        <div class="rating" v-html="getStars(lesson.rating)"></div>
         <p>Location: {{ lesson.location }}</p>
         <p>Price: ${{ lesson.price }}</p>
         <p>Availability: {{ lesson.spaces }}</p>

@@ -63,6 +63,10 @@ input[type="text"], select {
     border: 3px solid #fff;
 }
 
+.rating {
+    font-size: 10px;
+}
+
 .lesson:hover {
     background-color: #fff;
     color: #587d8fe4;
@@ -71,6 +75,10 @@ input[type="text"], select {
 }
 
 .lesson:hover .fas { 
+    color: #587d8fe4;
+}
+
+.lesson:hover .far {
     color: #587d8fe4;
 }
 
@@ -268,6 +276,10 @@ body.dark-theme .lesson:hover {
 }
 
 body.dark-theme .lesson:hover .fas { 
+    color: #080728;
+}
+
+body.dark-theme .lesson:hover .far {
     color: #080728;
 }
 
