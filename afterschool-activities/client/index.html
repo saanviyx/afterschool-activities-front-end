@@ -15,20 +15,20 @@
     <div id="app">
       <header>
         <h1>Afterschool Activities</h1>
-        <label class="switch" style="margin-left: 62.5rem; margin-top: 13px;">
+        <label class="switch">
           <input type="checkbox" id="themeToggle" @change="toggleTheme" />
           <span class="slider round"></span>
         </label>
-        <div class="button" @click="toggleCartPage" style="margin-right: 5px;">
+        <div class="button" @click="toggleCartPage">
           <i class="fas fa-cart-plus"></i>
           <span class="badge" v-if="cartItemCount">{{ cartItemCount }}</span>
         </div>
       </header>
 
       <div v-if="!isCartPage">
-        <div style="padding: 15px; padding-bottom: 8px; padding-top: 8px;">
+        <div class="lessons-page">
           <input type="text" id="search" v-model="searchQuery" placeholder="Search Lessons..." />
-          <select v-model="sortKey" style="margin-left: 5px;">
+          <select v-model="sortKey">
             <option value="title">Subject</option>
             <option value="location">Location</option>
             <option value="price">Price</option>
@@ -46,7 +46,7 @@
           No lessons found.
         </div>
 
-        <div v-if="sortedLessons.length" id="lessonList" class="lesson-container" style="padding: 15px; padding-top: 0px;">
+        <div v-if="sortedLessons.length" id="lessonList" class="lesson-container">
           <div v-for="lesson in sortedLessons" :key="lesson.id" class="lesson">
             <h2>
               <i :class="['fas', icons[lesson.title.toLowerCase()]]"></i> 
@@ -67,13 +67,13 @@
             {{ item.title }} - ${{ item.price }} x {{ item.quantity }}
             <button @click="removeFromCart(item)">Remove</button>
           </div>
-          <h3>Total: ${{ cartTotal }}</h3>
+          <div class="cart-total">Total: ${{ cartTotal }}</div>
           <form id="checkout-form" @submit.prevent="submitOrder">
-            <label for="name">Name:</label>
-            <input type="text" id="name" v-model="name" required /><br />
-            <label for="email">Email:</label>
-            <input type="email" id="email" v-model="email" required /><br />
-            <button type="submit" :disabled="!canCheckout">Checkout</button>
+            <div class="form-row">
+              <input type="text" id="name" v-model="name" placeholder="Name">
+              <input type="phone" id="phone" v-model="phone" placeholder="Phone Number">
+            </div>
+            <button class="checkout-btn" type="submit" :disabled="!canCheckout">Checkout</button>
           </form>
         </div>
         <div v-else>

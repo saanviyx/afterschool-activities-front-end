@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #fff; 
-    color: #96B6C5; 
+    background-color: #ffffff; 
+    color: #587d8fe4; 
     margin: 0;
     overflow-y: scroll;
 }
@@ -11,9 +11,11 @@ header {
     justify-content: space-between;
     height: 80px;
     align-items: center;
-    background-color: #96B6C5; 
+    background-color: #587d8fe4; 
+    color: #fff;
     padding: 5px;
     padding-top: 0px;
+    padding-bottom: 0px;
     border-bottom: 3px solid #fff;;
 }
 
@@ -24,45 +26,57 @@ h1 {
 
 input[type="text"], select {
     padding: 10px;
-    border: 1px solid #F1F0E8;
+    border: 1px solid #fff;
     border-radius: 5px;
     margin: 0 10px;
 }
 
 .button {
-    background: #96B6C5; 
     position: relative;
     color: #fff;
     padding: 5px 25px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: all 0.3s;
     text-align: center;
     font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s;
+    margin-right: 5px;
 }
 
 .button .content {
     margin-right: 10px;
-}
-
-.button:hover {
-    background-color: #96B6C5; 
+    color: #fff;
 }
 
 .lesson {
-    background-color: #96B6C5; 
+    background-color: #587d8fe4; 
     color: #fff;
     border-radius: 5px;
     width: 21%;
-    padding: 18px;
+    padding: 10px;
+    padding-top: 0px;
     margin-bottom: 0px;
     text-align: center; 
     border: 3px solid #fff;
+}
+
+.lesson:hover {
+    background-color: #fff;
+    color: #587d8fe4;
+    border: 3px solid #587d8fe4;
+    transform: scale(1);
+}
+
+.lesson:hover .fas { 
+    color: #587d8fe4;
+}
+
+.lesson:hover button {
+    background-color: #587d8fe4;;
+    color: #fff;
 }
 
 .lesson-container {
@@ -71,11 +85,17 @@ input[type="text"], select {
     justify-content: center; 
     gap: 20px; 
     margin: 0 auto;
+    padding-bottom: 8px;
+}
+
+.lessons-page {
+    padding: 15px; 
+    padding-top: 5px;
 }
 
 .lesson button {
     background-color: #fff; 
-    color: #96B6C5;
+    color: #587d8fe4;
     height: 30px;
     width: 90px;
     border: none;
@@ -94,47 +114,24 @@ input[type="text"], select {
     margin-right: 8px; 
 }
 
-.cart-page {
-    background-color: #96B6C5; 
-    color: #fff;
-    padding: 30px;
-    max-width: 600px;
-    margin: 30px auto;
-    margin-top: 5rem; 
-    border-radius: 8px;
-}
-
-.cart-lesson {
-    margin: 10px 0;
-}
-
-.cart-lesson button {
-    background: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-}
-
 h3 {
     margin-top: 20px;
 }
 
 select {
     padding: 8px;
-    padding-top: 6px;
+    padding-top: 0.5%;
     margin-left: 10px;
     margin-right: 15px;
     width: 150px;
     height: 32px;
-    color: #888;
-    border: 1px solid #ccc;
+    border: 1px solid #888;
     align-items: center;
     border-radius: 3px;
 }
 
 input[type="button"] {
-    background-color: #96B6C5; 
+    background-color: #587d8fe4; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -148,7 +145,7 @@ input[type="button"]:disabled {
 }
 
 input[type="button"]:hover:not(:disabled) {
-    background-color: #96B6C5;
+    background-color: #587d8fe4;
 }
 
 .badge {
@@ -172,7 +169,8 @@ main {
     display: inline-block;
     width: 60px;
     height: 34px;
-    margin-left: 10px;
+    margin-left: 60%; 
+    margin-top: 13px;
 }
   
 .switch input {
@@ -201,7 +199,7 @@ main {
     width: 25px;
     left: 4px;
     bottom: 4px;
-    background-color: #96B6C5;
+    background-color: #587d8fe4;
     transition: 0.3s;
     border-radius: 50%;
 }
@@ -226,7 +224,7 @@ input:checked + .slider:before {
 
 body.dark-theme {
     background-color: #080728;
-    color: #393535;
+    color: #fff;
 }
 
 body.dark-theme header {
@@ -244,10 +242,6 @@ body.dark-theme header h1 {
     color: #fff;
 }
 
-body.dark-theme label {
-    color: #ded9c7;
-}
-
 body.dark-theme header .button {
     background-color: #080728;
     color: #fff;
@@ -258,110 +252,159 @@ body.dark-theme .lesson {
     color: #fff;
     border: 3px solid #fff;
     width: 21%;
-    padding: 18px;
+    padding: 10px;
     margin-bottom: 0px;
 }
 
-body.dark-theme .lesson button{
+body.dark-theme .lesson button {
     color: #080728;
 }
-  
-#cart-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
+
+body.dark-theme .lesson:hover {
+    background-color: #fff;
+    color: #080728;
+    border: 3px solid #080728;
+    transform: scale(1);
+}
+
+body.dark-theme .lesson:hover .fas { 
+    color: #080728;
+}
+
+body.dark-theme .lesson:hover button {
+    background-color: #080728;
+    color: #fff;
+}
+
+body.dark-theme .cart-page {
+    background-color: #080728;
+    border: 3px solid #fff;
+}
+
+body.dark-theme .cart-lesson {
+    background-color: #768fda8e;
+}
+
+.cart-page {
+    background-color: #587d8fe4; 
+    color: #fff;
+    padding: 30px;
+    max-width: 40%;
+    max-height: 60%;
+    margin: 5% auto;
+    margin-top: 2.5%; 
+    border-radius: 8px;
+    border: 3px solid #fff;
+}
+
+.cart-page h2 {
+    text-align: center;
+    margin-top: 1%
+}
+
+.cart-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-lesson {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding: 10px;
+    background-color: #ffffff33;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.cart-lesson button {
+    background: #a30000;
     color: white;
     border: none;
+    padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
-    position: relative;
 }
 
-.cart-count {
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 5px;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 14px;
+.cart-lesson button:hover {
+    color: #a30000;
+    background-color: white;
 }
 
-form {
-    background: #96B6C5;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-form label {
-    color: #ccc;
+.cart-total {
+    align-items: flex-end;
+    margin-top: 4%;
+    margin-bottom: 2%;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
-form input[type="text"],
-form input[type="email"] {
-    background: #fff;
-    color: #888;
-    border: none;
-    padding: 10px;
-    align-items: center;
-    margin-bottom: 10px;
-    width: calc(100% - 22px);
-    border-radius: 5px;
+#checkout-form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0%;
+    border-radius: 8px;
+    text-align: center;
 }
 
-form input[type="text"]:focus,
-form input[type="email"]:focus {
-    outline: none;
-    border: 1px solid #e0e0e0;
+.form-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1%;
+    margin-left: 0px;
+}
+
+form input[type="text"], form input[type="phone"] {
+    background: #fff;
+    margin: 8px;
+    margin-top: 0%;
+    color: #888;
+    border: none;
+    padding: 5px;
+    width: 50%;
+    height: 25%;
+    border-radius: 5px;
 }
 
 form button[type="submit"] {
-    background: #28a745;
-    color: white;
+    background: #0d3617;
+    color: #fff;
     border: none;
     padding: 10px;
     cursor: pointer;
-    width: 100%;
+    width: 40%;
+    max-width: 50%;
+    height: 25%;
+    margin: 5px auto;
     border-radius: 5px;
     font-weight: bold;
     transition: background-color 0.3s;
+    display: block;
 }
 
 form button[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #fff;
+    color: #0d3617;
 }
 
 form button[type="submit"]:disabled {
     background-color: #6c757d;
     cursor: not-allowed;
 }
-  
-#close-cart-btn,
-#close-checkout-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-  
-#close-cart-btn:hover,
-#close-checkout-btn:hover {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
 
 #search {
     margin: 20px 0;
+    margin-bottom: 1%;
     margin-right: 6px;
     margin-left: 8px;
     padding: 8px;
     width: 100%;
     height: 14px;
     max-width: 485px;
-    border: 1px solid #ccc;
+    border: 1px solid #888;
     border-radius: 3px;
 }
 
@@ -370,5 +413,5 @@ form button[type="submit"]:disabled {
     margin-top: 50px;
     text-align: center;
     font-size: 1.2em;
-    color: #888;
-  }
+    color: #cccccc48;
+}
