@@ -62,7 +62,6 @@ let app = new Vue({
       if (originalLesson) originalLesson.spaces++;
     },
     sortLessons() {
-      // No default sort applied unless user selects.
       if (this.sortOrder && this.sortKey) this.filteredLessons();
     },
     toggleCartPage() {
@@ -104,7 +103,7 @@ let app = new Vue({
         stars.push('<i class="fas fa-star-half-alt"></i>');
       }
 
-      while (stars.length < 3) {
+      while (stars.length < 5) {
         stars.push('<i class="far fa-star"></i>');
       }
       return stars.join(" ");

@@ -4,12 +4,9 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "cors": "^2.8.5",
     "express": "^4.21.1",
     "fs": "^0.0.1-security",
-    "lodash": "^4.17.21",
     "path": "^0.12.7",
-    "vue": "^3.5.12",
-    "vue-router": "^4.4.5"
+    "vue": "^3.5.12"
   }
 }

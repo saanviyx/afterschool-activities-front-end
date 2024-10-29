@@ -8,6 +8,8 @@ function sortLessons(criteria, order) {
             return order === 'asc' ? a.location.localeCompare(b.location) : b.location.localeCompare(a.location);
         } else if (criteria === 'spaces') {
             return order === 'asc' ? a.spaces - b.spaces : b.spaces - a.spaces;
+        } else if (criteria === 'rating') {
+            return order === 'asc' ? a.rating - b.rating : b.rating - a.rating;
         }
         return 0;
     });
