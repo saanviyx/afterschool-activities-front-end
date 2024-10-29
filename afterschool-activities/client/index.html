@@ -25,7 +25,7 @@
     </div>
   </header>
 
-  <div v-if="!isCartPage">
+  <div v-if="!isCartPage" style="margin-bottom: 1rem;">
     <div class="lessons-page">
       <input type="text" id="search" v-model="searchQuery" placeholder="Search Lessons..." />
       <select v-model="sortKey">
@@ -49,6 +49,7 @@
     <div v-if="filteredLessons.length" id="lessonList" class="lesson-container">
       <div v-for="lesson in filteredLessons" :key="lesson.id" class="lesson">
         <h2>{{ lesson.title }}</h2>
+        <img :src="lesson.image" :alt="lesson.title" class="lesson-image" />
         <div class="rating" v-html="getStars(lesson.rating)"></div>
         <p>Location: {{ lesson.location }}</p>
         <p>Price: ${{ lesson.price }}</p>
