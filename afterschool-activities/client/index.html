@@ -58,6 +58,13 @@
         <button @click="addToCart(lesson)" :disabled="lesson.spaces === 0">Add to Cart</button>
       </div>
     </div>
+    <div v-if="showModal" class="modal-overlay" @click="closeModal">
+      <div class="modal-content">
+        <h2>Order Successful!</h2>
+        <p>Thank you for your purchase.</p>
+        <button @click="closeModal">Close</button>
+      </div>
+    </div>
   </div>
 
   <div v-if="isCartPage" id="cart-page" class="cart-page">
@@ -79,13 +86,6 @@
     </div>
     <div v-else>
       <p>Your cart is empty.</p>
-    </div>
-  </div>
-  <div v-if="showModal" class="modal-overlay">
-    <div class="modal-content">
-      <h2>Order Successful!</h2>
-      <p>Thank you for your purchase.</p>
-      <button @click="closeModal">Close</button>
     </div>
   </div>
 </div>
