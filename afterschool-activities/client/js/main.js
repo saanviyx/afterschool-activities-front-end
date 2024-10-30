@@ -9,6 +9,7 @@ let app = new Vue({
     name: "",
     phone: "",
     searchQuery: "",
+    showModal: false,
   },
   computed: {
     cartTotal() {
@@ -18,7 +19,7 @@ let app = new Vue({
       return this.cart.length;
     },
     canCheckout() {
-      return this.cart.length > 0;
+      return this.validateName() && this.validatePhone() && this.cart.length > 0;
     },
     filteredLessons() {
       let filtered = [];
@@ -78,14 +79,14 @@ let app = new Vue({
       return phonePattern.test(this.phone);
     },
     submitOrder() {
-      if (this.validateName() && this.validatePhone()) {
-        alert(`Order submitted by ${this.name}. Total: $${this.cartTotal}`);
-        this.cart = [];
-        this.name = "";
-        this.phone = "";
-      } else {
-        alert("Please complete the form correctly.");
-      }
+      this.showModal = true;
+      this.cart = [];
+      this.name = "";
+      this.phone = "";
+      this.isCartPage = !this.isCartPage;
+    },
+    closeModal() {
+      this.showModal = false;
     },
     toggleTheme() {
       document.body.classList.toggle("dark-theme");
